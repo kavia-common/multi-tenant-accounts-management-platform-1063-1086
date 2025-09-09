@@ -1,9 +1,17 @@
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+
 export default function Home() {
-  return (
-    <main className="min-h-screen bg-white flex items-center justify-center">
-      <h1 className="text-black text-4xl font-light">
-        accounts_frontend is being generated
-      </h1>
-    </main>
-  );
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isAuthenticated) router.replace("/dashboard");
+    else router.replace("/login");
+  }, [isAuthenticated, router]);
+
+  return null;
 }
